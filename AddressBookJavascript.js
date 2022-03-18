@@ -227,6 +227,34 @@ function sortContactsByName() {
         console.error(e);
     }
 }
+function sortContacts() {
+    try {
+        while (true) {
+            console.log("1: Sort By City Name \n2: Sort By State Name \n3: Sort By Zipcode \n4: Go Back");
+            switch (parseInt(readlineSync.question("Enter Your Choice From Above : "))) {
+                case 1:
+                    addressBookContactArr.sort((x, y) => x.city > y.city ? 1 : -1);
+                    console.log(`\nContacts Sorted By City Name : \n${addressBookContactArr.join("\n")}`)
+                    break;
+                case 2:
+                    addressBookContactArr.sort((x, y) => x.state > y.state ? 1 : -1);
+                    console.log(`\nContacts Sorted By State Name : \n${addressBookContactArr.join("\n")}`)
+                    break;
+                case 3:
+                    addressBookContactArr.sort((x, y) => x.zipCode > y.zipCode ? 1 : -1);
+                    console.log(`\nContacts Sorted By ZipCode : \n${addressBookContactArr.join("\n")}`)
+                    break;
+                case 4:
+                    return;
+                default:
+                    console.log("Wrong Choice")
+                    continue;
+            }
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
 
 //Function to perform addressbook operations(UC3)
 function AddressBookOperations() {
@@ -235,7 +263,7 @@ function AddressBookOperations() {
         AddContact("Shweta", "Sapkal", "Chinchner", "Satara", "Maharashtra", "415004", "91 8796543210", "shweta45@gmail.com");
         AddContact("Snehal", "Jagtap", "Chinchwad", "Pune", "Maharastra", "789456", "91 9087654321", "snehal65@gmail.com");
         while (true) {
-            console.log("\n0: Exit \n1: Add New Contact  \n2: Display contacts\n3.Find and edit contact\n4.Delete Contact using name\n5.Contact Count in the addressbook\n6.Search person by city or state\n7.view Person by city or state\n8.count by city or state\n9.Sort Entries by persons name");
+            console.log("\n0: Exit \n1: Add New Contact  \n2: Display contacts\n3.Find and edit contact\n4.Delete Contact using name\n5.Contact Count in the addressbook\n6.Search person by city or state\n7.view Person by city or state\n8.count by city or state\n9.Sort Entries by persons name\n10.Sort by city,state,zip");
             switch (parseInt(readlineSync.question('Enter the choice : '))) {
                 case 0:
                     console.log("Exited");
@@ -264,6 +292,8 @@ function AddressBookOperations() {
                                         countPersonsByCityOrState();break;
                                         case 9:
                                             sortContactsByName();break;
+                                            case 10:
+                                                sortContacts();break;
                 default:
                     console.log("Wrong Choice");
                     break;
