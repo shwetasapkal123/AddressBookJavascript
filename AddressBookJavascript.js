@@ -207,6 +207,16 @@ function searchPersonByCityOrState(city, state) {
     let contact = addressBookContactArr.filter((contact) => contact.city == cityOrState || contact.state == cityOrState);
     console.log(contact.join("\n"));
 }
+//Function to count person by city or state(UC10)
+function countPersonsByCityOrState() {
+    try {
+        let cityOrState = readlineSync.question("Enter A City Or State Name To Count Person : ");
+        let count = addressBookContactArr.filter((contact) => contact.city == cityOrState || contact.state == cityOrState).reduce((contact) => contact + 1, 0)
+        console.log(`The Count Of Persons in ${cityOrState} Is : ${count}`)
+    } catch (e) {
+        console.error(e);
+    }
+}
 
 //Function to perform addressbook operations(UC3)
 function AddressBookOperations() {
@@ -215,7 +225,7 @@ function AddressBookOperations() {
         AddContact("Shweta", "Sapkal", "Chinchner", "Satara", "Maharashtra", "415004", "91 8796543210", "shweta45@gmail.com");
         AddContact("Snehal", "Jagtap", "Chinchwad", "Pune", "Maharastra", "789456", "91 9087654321", "snehal65@gmail.com");
         while (true) {
-            console.log("\n0: Exit \n1: Add New Contact  \n2: Display contacts\n3.Find and edit contact\n4.Delete Contact using name\n5.Contact Count in the addressbook\n6.Search person by city or state\n7.view Person by city or state");
+            console.log("\n0: Exit \n1: Add New Contact  \n2: Display contacts\n3.Find and edit contact\n4.Delete Contact using name\n5.Contact Count in the addressbook\n6.Search person by city or state\n7.view Person by city or state\n8.count by city or state");
             switch (parseInt(readlineSync.question('Enter the choice : '))) {
                 case 0:
                     console.log("Exited");
@@ -240,6 +250,8 @@ function AddressBookOperations() {
                                     searchPersonByCityOrState();break;
                                 case 7:
                                     searchPersonByCityOrState();break;
+                                    case 8:
+                                        countPersonsByCityOrState();break;
                 default:
                     console.log("Wrong Choice");
                     break;
