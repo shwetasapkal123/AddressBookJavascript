@@ -178,6 +178,19 @@ function FindAndEditContact() {
     }
 }
 
+//UC5 - Function to delete contact based on name
+function deleteContact() {
+    try {
+        let name = readlineSync.question('Enter The Name Of The Contact To delete Contact : ');
+        const index = addressBookContactArr.findIndex((contact) => contact.firstName == name);
+        //using splice remove the element
+        if (index != -1)
+            addressBookContactArr.splice(index, 1);
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 //Function to perform addressbook operations(UC3)
 function AddressBookOperations() {
     try {
@@ -185,7 +198,7 @@ function AddressBookOperations() {
         AddContact("Shweta", "Sapkal", "Chinchner", "Satara", "Maharashtra", "415004", "91 8796543210", "shweta45@gmail.com");
         AddContact("Snehal", "Jagtap", "Chinchwad", "Pune", "Maharastra", "789456", "91 9087654321", "snehal65@gmail.com");
         while (true) {
-            console.log("\n0: Exit \n1: Add New Contact  \n2: Display contacts\n3.Find and edit contact");
+            console.log("\n0: Exit \n1: Add New Contact  \n2: Display contacts\n3.Find and edit contact\n4.Delete Contact using name");
             switch (parseInt(readlineSync.question('Enter the choice : '))) {
                 case 0:
                     console.log("Exited");
@@ -200,6 +213,10 @@ function AddressBookOperations() {
                     case 3:
                         FindAndEditContact();
                         break;
+                        case 4:
+                            deleteContact();
+                            console.log("Contact deleted successfully");
+                            break;
                 default:
                     console.log("Wrong Choice");
                     break;
