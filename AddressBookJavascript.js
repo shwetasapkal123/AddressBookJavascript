@@ -120,6 +120,63 @@ function DisplayContact() {
         console.error(e);
     }
 }
+//UC4 - Function to find and edit contacts based on the given name
+function FindAndEditContact() {
+    try {
+        let name = readlineSync.question('Enter Your Name To View And Modify Contact : ');
+        addressBookContactArr.forEach((contact) => {
+            if (contact.firstName == name) {
+                console.log(contact.toString());
+                while (true) {
+                    console.log("1: First Name \n2: Last Name \n3: Address \n4: City \n5: State \n6: Zipcode \n7: Phone Number \n8: Email Address \n9: Go Back")
+                    let choice = parseInt(readlineSync.question("Enter The Choice From Above That You Want Modified : "));
+                    switch (choice) {
+                        case 1:
+                            let newFirstName = readlineSync.question("Enter The New First Name : ");
+                            contact.firstName = newFirstName;
+                            break;
+                        case 2:
+                            let newLastName = readlineSync.question("Enter The New First Name : ");
+                            contact.lastName = newLastName;
+                            break;
+                        case 3:
+                            let newAddress = readlineSync.question("Enter The New Address : ");
+                            contact.address = newAddress;
+                            break;
+                        case 4:
+                            let newCity = readlineSync.question("Enter The New City Name : ");
+                            contact.city = newCity;
+                            break;
+                        case 5:
+                            let newState = readlineSync.question("Enter The New State Name : ");
+                            contact.state = newState;
+                            break;
+                        case 6:
+                            let newZipCode = readlineSync.question("Enter The New Zip Code : ");
+                            contact.zipCode = newZipCode;
+                            break;
+                        case 7:
+                            let newPhoneNum = readlineSync.question("Enter The New Phone Number : ");
+                            contact.phoneNumber = newPhoneNum;
+                            break;
+                        case 8:
+                            let newEmailId = readlineSync.question("Enter The New Email Id : ");
+                            contact.email = newEmailId;
+                            break;
+                        case 9:
+                            return;
+                        default:
+                            console.log("Invalid Option");
+                            break;
+                    }
+                }
+            }
+        });
+        console.log("No Contact Found")
+    } catch (e) {
+        console.error(e);
+    }
+}
 
 //Function to perform addressbook operations(UC3)
 function AddressBookOperations() {
@@ -128,7 +185,7 @@ function AddressBookOperations() {
         AddContact("Shweta", "Sapkal", "Chinchner", "Satara", "Maharashtra", "415004", "91 8796543210", "shweta45@gmail.com");
         AddContact("Snehal", "Jagtap", "Chinchwad", "Pune", "Maharastra", "789456", "91 9087654321", "snehal65@gmail.com");
         while (true) {
-            console.log("\n0: Exit \n1: Add New Contact  \n2: Display contacts");
+            console.log("\n0: Exit \n1: Add New Contact  \n2: Display contacts\n3.Find and edit contact");
             switch (parseInt(readlineSync.question('Enter the choice : '))) {
                 case 0:
                     console.log("Exited");
@@ -140,6 +197,9 @@ function AddressBookOperations() {
                 case 2:
                     DisplayContact();
                     break;
+                    case 3:
+                        FindAndEditContact();
+                        break;
                 default:
                     console.log("Wrong Choice");
                     break;
