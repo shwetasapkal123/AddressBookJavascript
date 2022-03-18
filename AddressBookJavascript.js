@@ -29,6 +29,8 @@ class Contact {
         return `First Name: ${this.firstName}\tLast Name: ${this.lastName}\tAddress: ${this.address}\tCity: ${this.city}\tState: ${this.state}\tZipCode: ${this.zipCode}\tPhone Number: ${this.phoneNumber}\tEmail-Id: ${this.emailId}\n`;
     }
 }
+//UC3 - Initializing an addressbook contact array
+var addressBookContactArr = new Array();
 
 //UC1 - Function to return object of added contacts
 function AddContact(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId) {
@@ -39,7 +41,8 @@ function AddContact(firstName, lastName, address, city, state, zipCode, phoneNum
     } catch (e) {
         console.error(e)
     }
-    return contact;
+    addressBookContactArr.push(contact);
+    console.log("Contact added Succesfully");
 }
 
 //Function to get the details of the contact from the user
@@ -49,7 +52,7 @@ function getContactDetails() {
         let namePattern = new RegExp('^[A-Z]{1}[a-z]{2,}$');
         let addressPattern = new RegExp('^[A-Za-z]{4,}$');
         let zipCodePattern = new RegExp('^[1-9]{1}[0-9]{2}[ ]?[0-9]{3}$');
-        let phoneNumPattern = new RegExp('^\\+?91[ ]?[1-9][0-9]{9}$');
+        let phoneNumPattern = new RegExp('^[0-9]{10}$');
         let emailIdPattern = new RegExp('^[a-zA-Z0-9]{3,}([._+-][0-9a-zA-Z]{2,})*@[0-9a-zA-Z]+[.]?([a-zA-Z]{2,4})+[.]?([a-zA-Z]{2,3})*$');
         //Validating first name
         let firstName = readlineSync.question('Enter Your FirstName : ');
@@ -87,9 +90,7 @@ function getContactDetails() {
             throw 'Zipcode is not valid';
         //Validating phone number
         let phoneNumber = parseInt(readlineSync.question('Enter Your Phone Number : '));
-        if (phoneNumPattern.test(phoneNumber))
-        this.phoneNumPattern=phoneNumber;
-        else
+        if (!phoneNumPattern.test(phoneNumber))
             throw 'Phone number is not valid';
         //Validating email id
         let emailId = readlineSync.question('Enter Your Email Id : ');
@@ -100,11 +101,56 @@ function getContactDetails() {
         let contactDetails = AddContact(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId);
         console.log("\nContact Details: ");
         console.log(contactDetails.toString());
+        AddContact(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId);
+        console.log("Contact added Succesfully");
     } catch (e) {
         console.error(e);
     }
 }
 
+//UC3 - Function to display contacts
+function DisplayContact() {
+    try {
+        console.log("\nContact Details Of AddressBook \n");
+        if(addressBookContactArr.length !=0)
+            addressBookContactArr.forEach(contact => console.log(contact.toString()));
+        else
+            console.log("Addressbook is empty")
+    } catch (e) {
+        console.error(e);
+    }
+}
 
-//Calling the function
-getContactDetails();
+//Function to perform addressbook operations(UC3)
+function AddressBookOperations() {
+    try {
+        //Default contacts
+        AddContact("Shweta", "Sapkal", "Chinchner", "Satara", "Maharashtra", "415004", "91 8796543210", "shweta45@gmail.com");
+        AddContact("Snehal", "Jagtap", "Chinchwad", "Pune", "Maharastra", "789456", "91 9087654321", "snehal65@gmail.com");
+        while (true) {
+            console.log("\n0: Exit \n1: Add New Contact  \n2: Display contacts");
+            switch (parseInt(readlineSync.question('Enter the choice : '))) {
+                case 0:
+                    console.log("Exited");
+                    process.exit(1)
+                    break;
+                case 1:
+                    getContactDetails();
+                    break;
+                case 2:
+                    DisplayContact();
+                    break;
+                default:
+                    console.log("Wrong Choice");
+                    break;
+            }
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+//Calling the addressbook operation functions(UC3)
+AddressBookOperations(); 
+//UC1Calling the function
+//getContactDetails();
